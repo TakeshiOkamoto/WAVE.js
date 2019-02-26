@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+#btn_start { 
+  margin: 0 8px 0 17px;  
+  width:160px;
+  font-size:20px;
+  font-weight:bold;
+  text-align:center;
+  padding:8px 0 10px 0;
+  color:#fff;
+  background-color:#ff6347;
+}
+
+#btn_start:hover{
+  margin: 0 8px 0 17px;    
+  width:160px;
+  font-size:20px;
+  font-weight:bold;
+  text-align:center;
+  padding:8px 0 10px 0;
+  color:#fff;
+  background-color:#ff4500;
+}
+</style>
+<script src="WAVE.js"></script>
+<script>
+var wav;
+
+function onDragOver(event){ 
+  event.preventDefault(); 
+} 
+  
+function onDrop(event){
+  onAddFile(event);
+  event.preventDefault(); 
+}  
+
+function run() {
+ 
+  // HTML5 Validity Check
+  if (!document.getElementById("num_Hz").checkValidity()){
+    return true;
+  }   
+
+  if(!wav) return false;
+    
+  var bit       = parseInt(document.getElementById("lst_bit").value,10);
+  var frequency = parseInt(document.getElementById("num_Hz").value,10);
+  var channel   = parseInt(document.getElementById("lst_channel").value,10);
+  
+  var stereo;
+  if(channel == 2){
+    stereo = true;
+  }else{
+    stereo = false;
+  }
+   
+console.time("run");    
+ 
+  try{   
+    wav.SaveToFile("test.wav", bit, stereo, frequency);
+  }catch(e){
+    alert(e);
+    console.error(e);  
+  }
+  
+console.timeEnd("run");
+  
+  return false;
+}
+
+function onAddFile(event) {
+  var files;
+  var errflg = false;
+  var reader = new FileReader();
+  
+  if(event.target.files){
+    files = event.target.files;
+  }else{ 
+    files = event.dataTransfer.files;   
+  }    
+  
+  if (!files[0]) return;
+   
+  reader.onload = function (event) {
+
+    try{
+      
+      wav = new TWaveFormat(new Uint8Array(reader.result));
+
+      console.log(wav);
+         
+      var str = "File loaded : " + wav.Analyst.WaveFomat.wBitsPerSample + "bit ";
+      str += document.getElementById("msg").innerHTML = wav.Analyst.WaveFomat.nSamplesPerSec + "Hz ";
+     
+      if(wav.Analyst.WaveFomat.nChannels == 1){
+        str += " Mono ";
+      }else{
+        str += " Stereo ";
+      }
+      
+      str += Math.round(wav.Analyst.time)/1000 + "s";
+            
+      document.getElementById("msg").innerHTML =str;
+      
+    }catch(e){
+      alert(e);
+      console.error(e); 
+    }    
+  };
+  
+  if (files[0]){    
+    reader.readAsArrayBuffer(files[0]); 
+  }
+}      
+</script>
+
+</head>
+<body ondrop="onDrop(event);" ondragover="onDragOver(event);">  
+ <h1>DEMO1 "Convert"</h1>
+ <form> 
+   <table>
+     <tr><th>Wave File</th><td><input type="file" id="inputfile" accept="audio/wav" onchange="onAddFile(event);"></td></tr>
+   </table>    
+   <p></p> 
+   <table>
+     <tr><th>Bit</th>
+         <td><select id="lst_bit">
+                   <option value="8">unsigned 8-bit [PCM]</option>
+                   <option value="16" selected="selected">Signed 16-bit [PCM]</option>
+                   <option value="24">Signed 24-bit [PCM]</option>
+                   <option value="32">Signed 32-bit [PCM]</option>
+                 </select></td></tr>
+    <tr><th>Frequency</th>
+        <td><input type="number" id="num_Hz" style="width:70px;text-align:right;" min="1" max="999999" value ="44100" required> 
+                 <select onchange="document.getElementById('num_Hz').value = this.value">
+                   <option value="8000">8000</option>
+                   <option value="11025">11025</option>
+                   <option value="16000">16000</option>
+                   <option value="22050">22050</option>
+                   <option value="32000">32000</option>
+                   <option value="44100" selected="selected">44100</option>
+                   <option value="48000">48000</option>
+                   <option value="88200">88200</option>
+                   <option value="96000">96000</option>
+                   <option value="176400">176400</option>
+                   <option value="192000">192000</option>
+                   <option value="352800">352800</option>
+                   <option value="384000">384000</option>
+                 </select> Hz</td></tr>
+     <tr><th>Channel</th>
+         <td><select id="lst_channel">
+                   <option value="2" selected="selected">Stereo (2 Channel)</option>
+                   <option value="1">Mono (1 Channel)</option>
+                 </select></td></tr>                        
+   </table>   
+   <p id="msg"></p> 
+   <input type="submit" id="btn_start" onclick="return run();" value="R U N" style="width">
+ </form>
+</body>
+</html> 
