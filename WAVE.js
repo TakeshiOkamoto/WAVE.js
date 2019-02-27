@@ -8,7 +8,7 @@
 /*   Released under the MIT license            */
 /*   https://github.com/TakeshiOkamoto         */
 /*                                             */
-/*                            Date: 2019-02-26 */
+/*                            Date: 2019-02-27 */
 /***********************************************/
 /*
 
@@ -606,6 +606,37 @@ TWaveFormat.prototype = {
   // Waveファイルの生成
   WriteStream: function (bits, data, frequency) {  
         
+    // 符号ありから符号なしに変換
+    if (this.Analyst.WaveFomat.wBitsPerSample == 8){
+      for(var i=0;i<data.L.length;i++){
+        data.L[i] = WAV_SetUint8(data.L[i]);
+      }    
+      for(var i=0;i<data.R.length;i++){
+        data.R[i] = WAV_SetUint8(data.R[i]);
+      }                 
+    }else if (this.Analyst.WaveFomat.wBitsPerSample == 16){
+      for(var i=0;i<data.L.length;i++){
+        data.L[i] = WAV_SetUint16(data.L[i]);
+      }    
+      for(var i=0;i<data.R.length;i++){
+        data.R[i] = WAV_SetUint16(data.R[i]);
+      }                 
+    }else if (this.Analyst.WaveFomat.wBitsPerSample == 24){
+      for(var i=0;i<data.L.length;i++){
+        data.L[i] = WAV_SetUint24(data.L[i]);
+      }    
+      for(var i=0;i<data.R.length;i++){
+        data.R[i] = WAV_SetUint24(data.R[i]);
+      }                 
+    }else if (this.Analyst.WaveFomat.wBitsPerSample == 32){
+      for(var i=0;i<data.L.length;i++){
+        data.L[i] = WAV_SetUint32(data.L[i]);
+      }    
+      for(var i=0;i<data.R.length;i++){
+        data.R[i] = WAV_SetUint32(data.R[i]);
+      }                 
+    } 
+        
     // フォーマットの変更      
     var WaveFomat ={};
     
@@ -815,18 +846,6 @@ TWaveFormat.prototype = {
         }          
       }
       
-      // 符号ありから符号なしに変換 
-      if(data.R.length == 0){ 
-        for(var i=0;i<data.L.length;i++){
-          data.L[i] = WAV_SetUint8(data.L[i]);
-        }         
-      }else{
-        for(var i=0;i<data.L.length;i++){
-          data.L[i] = WAV_SetUint8(data.L[i]);
-          data.R[i] = WAV_SetUint8(data.R[i]);     
-        }    
-      }
-      
     // 16bit      
     }else if(bits == 16){
       if(this.Analyst.WaveFomat.wBitsPerSample == 8){
@@ -864,18 +883,6 @@ TWaveFormat.prototype = {
           }
         }          
       }
-   
-      // 符号ありから符号なしに変換 
-      if(data.R.length == 0){ 
-        for(var i=0;i<data.L.length;i++){
-          data.L[i] = WAV_SetUint16(data.L[i]);
-        }         
-      }else{
-        for(var i=0;i<data.L.length;i++){
-          data.L[i] = WAV_SetUint16(data.L[i]);
-          data.R[i] = WAV_SetUint16(data.R[i]);     
-        }    
-      }    
 
     // 24bit         
     }else if(bits == 24){
@@ -914,18 +921,6 @@ TWaveFormat.prototype = {
           }
         }          
       }
-      
-      // 符号ありから符号なしに変換 
-      if(data.R.length == 0){ 
-        for(var i=0;i<data.L.length;i++){
-          data.L[i] = WAV_SetUint24(data.L[i]);
-        }         
-      }else{
-        for(var i=0;i<data.L.length;i++){
-          data.L[i] = WAV_SetUint24(data.L[i]);
-          data.R[i] = WAV_SetUint24(data.R[i]);     
-        }    
-      } 
     
     // 32bit           
     }else if(bits == 32){
@@ -964,23 +959,11 @@ TWaveFormat.prototype = {
         }      
       }else if(this.Analyst.WaveFomat.wBitsPerSample == 32){      
       }
-      
-      // 符号ありから符号なしに変換   
-      if(data.R.length == 0){ 
-        for(var i=0;i<data.L.length;i++){
-          data.L[i] = WAV_SetUint32(data.L[i]);
-        }      
-      }else{
-        for(var i=0;i<data.L.length;i++){
-          data.L[i] = WAV_SetUint32(data.L[i]);
-          data.R[i] = WAV_SetUint32(data.R[i]);     
-        }      
-      }    
     }       
     
     var F = this.WriteStream(bits, data, frequency);
     if(rawflg){
-      return new Uint8Array(F.Stream.subarray(0, F.getFileSize()));
+      return F.Stream.subarray(0, F.getFileSize());
     }else{
       return F;
     }    
