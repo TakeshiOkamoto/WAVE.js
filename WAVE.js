@@ -1,14 +1,14 @@
 /***********************************************/
 /*                                             */
 /*   WAVE.js                                   */
-/*                                      v1.00  */
+/*                                      v1.01  */
 /*                                             */
 /*   Copyright 2019 Takeshi Okamoto (Japan)    */
 /*                                             */
 /*   Released under the MIT license            */
 /*   https://github.com/TakeshiOkamoto         */
 /*                                             */
-/*                            Date: 2019-02-27 */
+/*                            Date: 2019-02-28 */
 /***********************************************/
 /*
 
@@ -52,84 +52,84 @@ function WAV_Byte2DWord(PByteArray){
 
 // Uint8からInt8へ 
 function WAV_SetInt8(x){
- if(128 == x) return 0;
+  if(128 == x) return 0;
  
- if(129 >= x){
-   return x -128; 
- }else{
+  if(129 >= x){
+    return x -128; 
+  }else{
     return -(128 - x);
- }
+  }
 }
 
 // Int8からUint8へ
 function WAV_SetUint8(x){
- if(0 == x) return 128;  
+  if(0 == x) return 128;  
  
- if(1 >= x){
-   return x + 128; 
- }else{
+  if(1 >= x){
+    return x + 128; 
+  }else{
     return 128 + x;
- }
+  }
 }
 
 // Uint16からInt16へ 
 // ※0 ～ 65535 から -32768 ～ 32767へ
 function WAV_SetInt16(x){
- if(32768 <= x){
-   return  -(65536 - x); 
- }else{
+  if(32768 <= x){
+    return  -(65536 - x); 
+  }else{
     return x;
- }
+  }
 }
 
 // Int16からUint16へ
 // ※-32768 ～ 32767 から 0 ～ 65535へ 
 function WAV_SetUint16(x){
- if(0 <= x && 32767 >= x){
-   return x; 
- }else{
-   return 65536 + x;
- }
+  if(0 <= x && 32767 >= x){
+    return x; 
+  }else{
+    return 65536 + x;
+  }
 } 
 
 // Uint24からInt24へ 
 // ※0 ～ 16777215 から -8388608 ～ 8388607へ
 function WAV_SetInt24(x){
- if(8388608 <= x){
-   return  -(16777216 - x); 
- }else{
-    return x;
- }
+  if(8388608 <= x){
+    return  -(16777216 - x); 
+  }else{
+     return x;
+  }
 }
 
 // Int24からUint24へ
 // ※-8388608 ～ 8388607 から 0 ～ 16777215へ 
 function WAV_SetUint24(x){
- if(0 <= x && 8388607 >= x){
-   return x; 
- }else{
-   return 16777216 + x;
- }
+  if(0 <= x && 8388607 >= x){
+    return x; 
+  }else{
+    return 16777216 + x;
+  }
 } 
 
 // Uint32からInt32へ 
 // ※0 ～ 4294967296 から -2147483648 ～ 2147483647へ
 function WAV_SetInt32(x){
- if(2147483648 <= x){
-   return  -(4294967296 - x); 
- }else{
-    return x;
- }
+  if(2147483648 <= x){
+    return  -(4294967296 - x); 
+  }else{
+     return x;
+  }
 }
 
 // Int32からUint32へ
 // ※-2147483648 ～ 2147483647 から 0 ～ 4294967296へ 
 function WAV_SetUint32(x){
- if(0 <= x && 2147483647 >= x){
-   return x; 
- }else{
-   return 4294967296 + x;
- }
+  if(0 <= x && 2147483647 >= x){
+    return x; 
+  }else{
+    return 4294967296 + x;
+  }
 } 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -604,31 +604,31 @@ TWaveFormat.prototype = {
   },
   
   // Waveファイルの生成
-  WriteStream: function (bits, data, frequency) {  
-        
+  WriteStream: function (bits, data, frequency) {      
+      
     // 符号ありから符号なしに変換
-    if (this.Analyst.WaveFomat.wBitsPerSample == 8){
+    if (bits == 8){
       for(var i=0;i<data.L.length;i++){
         data.L[i] = WAV_SetUint8(data.L[i]);
       }    
       for(var i=0;i<data.R.length;i++){
         data.R[i] = WAV_SetUint8(data.R[i]);
-      }                 
-    }else if (this.Analyst.WaveFomat.wBitsPerSample == 16){
+      }             
+    }else if (bits == 16){
       for(var i=0;i<data.L.length;i++){
         data.L[i] = WAV_SetUint16(data.L[i]);
       }    
       for(var i=0;i<data.R.length;i++){
         data.R[i] = WAV_SetUint16(data.R[i]);
       }                 
-    }else if (this.Analyst.WaveFomat.wBitsPerSample == 24){
+    }else if (bits == 24){
       for(var i=0;i<data.L.length;i++){
         data.L[i] = WAV_SetUint24(data.L[i]);
       }    
       for(var i=0;i<data.R.length;i++){
         data.R[i] = WAV_SetUint24(data.R[i]);
       }                 
-    }else if (this.Analyst.WaveFomat.wBitsPerSample == 32){
+    }else if (bits == 32){
       for(var i=0;i<data.L.length;i++){
         data.L[i] = WAV_SetUint32(data.L[i]);
       }    
@@ -636,7 +636,7 @@ TWaveFormat.prototype = {
         data.R[i] = WAV_SetUint32(data.R[i]);
       }                 
     } 
-        
+                         
     // フォーマットの変更      
     var WaveFomat ={};
     
@@ -789,7 +789,7 @@ TWaveFormat.prototype = {
       var index = 0;          
       for (var i=0;i< tmpL.length; i++){
          index += ratio;
-         tmpL[i] = data.L[Math.floor(index)];
+         tmpL[i] = data.L[Math.floor(index-1)];
       }
       data.L = tmpL;
 
@@ -798,7 +798,7 @@ TWaveFormat.prototype = {
         index = 0                                 
         for (var i=0;i< tmpL.length; i++){
            index += ratio;
-           tmpR[i] = data.R[Math.floor(index)];       
+           tmpR[i] = data.R[Math.floor(index-1)];       
         }
         data.R = tmpR;          
       }      
