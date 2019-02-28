@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="WAVE.js"></script>
+<script>
+function onDragOver(event){ 
+  event.preventDefault(); 
+} 
+  
+function onDrop(event){
+  onAddFile(event);
+  event.preventDefault(); 
+}  
+
+function onAddFile(event) {
+  var files;
+  var errflg = false;
+  var reader = new FileReader();
+  
+  if(event.target.files){
+    files = event.target.files;
+  }else{ 
+    files = event.dataTransfer.files;   
+  }    
+  
+  if (!files[0]) return;
+   
+  reader.onload = function (event) {
+
+    try{
+      
+      var wav = new TWaveFormat(new Uint8Array(reader.result));
+      
+      var str = "File loaded : " + wav.Analyst.WaveFomat.wBitsPerSample + "bit ";
+      str += document.getElementById("msg").innerHTML = wav.Analyst.WaveFomat.nSamplesPerSec + "Hz ";
+     
+      if(wav.Analyst.WaveFomat.nChannels == 1){
+        str += " Mono ";
+      }else{
+        str += " Stereo ";
+      }
+      
+      str += Math.round(wav.Analyst.time)/1000 + "s";
+            
+      document.getElementById("msg").innerHTML =str;            
+   
+   
+      var speed = parseInt(document.getElementById("lst_speed").value,10) /100;      
+      try{
+        var data = wav.getData();
+        
+        var frequency = wav.Analyst.WaveFomat.nSamplesPerSec;
+        var bits = wav.Analyst.WaveFomat.wBitsPerSample;
+        
+        // Speed up
+        if(speed >= 1){
+          // Size of 1 channel (bps / bits + α)
+          // ( 1チャンネルのサイズ )
+          var size = (frequency * (bits * 1) * wav.Analyst.time / 1000) / bits / speed;   
+          
+          var tmpL = new Array(Math.floor(size));                  
+          for (var i=0;i< tmpL.length; i++){
+            tmpL[i] = data.L[Math.floor(i * speed)];
+          }
+          data.L = tmpL;
+ 
+          if (data.R.length != 0){
+            var tmpR = new Array(tmpL.length); 
+            for (var i=0;i< tmpL.length; i++){
+              tmpR[i] = data.R[Math.floor(i * speed)];       
+            }
+            data.R = tmpR;          
+          }  
+          
+        // Speed down
+        }else{
+          speed = speed + (1);            
+          
+          var size = (frequency * (bits * 1) * wav.Analyst.time / 1000) / bits * speed;             
+       
+          var tmpL = new Array(Math.floor(size));
+          for (var i=0;i< tmpL.length; i++){
+            tmpL[i] = data.L[Math.floor(i / speed)];  
+          }
+          data.L = tmpL;
+
+          if (data.R.length != 0){
+            var tmpR = new Array(tmpL.length); 
+            for (var i=0;i< tmpL.length; i++){
+              tmpR[i] = data.R[Math.floor(i / speed)];          
+            }
+            data.R = tmpR;          
+          } 
+        }
+        
+        // Save
+        var F = wav.WriteStream(wav.Analyst.WaveFomat.wBitsPerSample, data,
+                                wav.Analyst.WaveFomat.nSamplesPerSec);
+        F.SaveToFile("test.wav","audio/wav");                
+        
+         
+      }catch(e){
+        alert("Could not acquire waveform data. (unsupported format)");
+        console.error(e);         
+      }
+     
+    }catch(e){
+      alert(e);
+      console.error(e); 
+    }    
+  };
+  
+  if (files[0]){    
+    reader.readAsArrayBuffer(files[0]); 
+    document.getElementById("inputfile").value = "";
+  }
+}      
+</script>
+
+</head>
+<body ondrop="onDrop(event);" ondragover="onDragOver(event);">  
+ <h1>DEMO4 "Effect - Speed"</h1>
+ <form> 
+   <table>
+     <tr><th>Wave File</th><td><input type="file" id="inputfile" accept="audio/wav" onchange="onAddFile(event);"></td></tr>
+   </table>    
+   <p></p> 
+   <table>
+     <tr><th>Speed</th>
+         <td><select id="lst_speed">
+               <option value="75">25%</option>         
+               <option value="50">50%</option>
+               <option value="45">55%</option>
+               <option value="40">60%</option>
+               <option value="35">65%</option>
+               <option value="30">70%</option>
+               <option value="25">75%</option>
+               <option value="20">80%</option>
+               <option value="15">85%</option>
+               <option value="10">90%</option>
+               <option value="5" >95%</option>
+               <option value="100" selected="selected">100%</option>
+               <option value="105">105%</option>
+               <option value="110">110%</option>
+               <option value="115">115%</option>
+               <option value="120">120%</option>
+               <option value="125">125%</option>
+               <option value="130">130%</option>
+               <option value="135">135%</option>
+               <option value="140">140%</option>
+               <option value="145">145%</option>
+               <option value="150">150%</option>
+               <option value="175">175%</option>
+               <option value="200">200%</option>
+               <option value="300">300%</option>               
+             </select></td></tr>                    
+   </table>   
+   <p id="msg"></p> 
+ </form>
+</body>
+</html> 

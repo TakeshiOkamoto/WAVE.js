@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="WAVE.js"></script>
+<script>
+function onDragOver(event){ 
+  event.preventDefault(); 
+} 
+  
+function onDrop(event){
+  onAddFile(event);
+  event.preventDefault(); 
+}  
+
+function onAddFile(event) {
+  var files;
+  var errflg = false;
+  var reader = new FileReader();
+  
+  if(event.target.files){
+    files = event.target.files;
+  }else{ 
+    files = event.dataTransfer.files;   
+  }    
+  
+  if (!files[0]) return;
+   
+  reader.onload = function (event) {
+
+    try{
+      
+      var wav = new TWaveFormat(new Uint8Array(reader.result));
+      
+      var str = "File loaded : " + wav.Analyst.WaveFomat.wBitsPerSample + "bit ";
+      str += document.getElementById("msg").innerHTML = wav.Analyst.WaveFomat.nSamplesPerSec + "Hz ";
+     
+      if(wav.Analyst.WaveFomat.nChannels == 1){
+        str += " Mono ";
+      }else{
+        str += " Stereo ";
+      }
+      
+      str += Math.round(wav.Analyst.time)/1000 + "s";
+            
+      document.getElementById("msg").innerHTML =str;      
+      
+      // This demo is easy to understand when checking the waveform with demo2.html.
+      // ( このデモはdemo2.htmlで波形を確認しながら実施するとわかりやすいです。 )    
+      var vol = parseInt(document.getElementById("lst_vol").value,10) /100;
+      
+      try{
+        // Get raw data in WAVE.js (signed bits, all)
+        // ( WAVE.jsで生データを取得する。全て符号付きとなります。 )
+        var data = wav.getData();
+        
+        // ----------------------------------
+        //             (MIN)         (MAX) 
+        //  8bit         -128 ...        127
+        //  16bit      -32768 ...      32767
+        //  24bit    -8388608 ...    8388607
+        //  32bit -2147483648 ... 2147483647
+        // ----------------------------------
+        
+        // Values outside the above range are unstable. range check is heavy, so judge by yourself.
+        // ( 上記の範囲外の値は不安定となります。範囲チェックは重いので各自で判断。) 
+        
+        // Raw data operation
+        // ( 生データの操作 )
+        for(var i=0;i<data.L.length;i++){
+          data.L[i] = data.L[i] * vol;
+        }
+        
+        for(var i=0;i<data.R.length;i++){
+          data.R[i] = data.R[i] * vol;
+        }             
+        
+        // Save
+        var F = wav.WriteStream(wav.Analyst.WaveFomat.wBitsPerSample, data,
+                                wav.Analyst.WaveFomat.nSamplesPerSec);
+        F.SaveToFile("test.wav","audio/wav");                
+        
+         
+      }catch(e){
+        alert("Could not acquire waveform data. (unsupported format)");
+        console.error(e);         
+      }
+     
+    }catch(e){
+      alert(e);
+      console.error(e); 
+    }    
+  };
+  
+  if (files[0]){    
+    reader.readAsArrayBuffer(files[0]); 
+    document.getElementById("inputfile").value = "";
+  }
+}      
+</script>
+
+</head>
+<body ondrop="onDrop(event);" ondragover="onDragOver(event);">  
+ <h1>DEMO3 "Effect - Volume"</h1>
+ <form> 
+   <table>
+     <tr><th>Wave File</th><td><input type="file" id="inputfile" accept="audio/wav" onchange="onAddFile(event);"></td></tr>
+   </table>    
+   <p></p> 
+   <table>
+     <tr><th>Volume</th>
+         <td><select id="lst_vol">
+               <option value="25">25%</option>         
+               <option value="50">50%</option>
+               <option value="55">55%</option>
+               <option value="60">60%</option>
+               <option value="65">65%</option>
+               <option value="70">70%</option>
+               <option value="75">75%</option>
+               <option value="80">80%</option>
+               <option value="85">85%</option>
+               <option value="90">90%</option>
+               <option value="95">95%</option>
+               <option value="100" selected="selected">100%</option>
+               <option value="105">105%</option>
+               <option value="110">110%</option>
+               <option value="115">115%</option>
+               <option value="120">120%</option>
+               <option value="125">125%</option>
+               <option value="130">130%</option>
+               <option value="135">135%</option>
+               <option value="140">140%</option>
+               <option value="145">145%</option>
+               <option value="150">150%</option>
+               <option value="175">175%</option>
+               <option value="200">200%</option>
+             </select></td></tr>                    
+   </table>   
+   <p id="msg"></p> 
+ </form>
+</body>
+</html> 

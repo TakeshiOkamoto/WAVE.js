@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="WAVE.js"></script>
+<script>
+function onDragOver(event){ 
+  event.preventDefault(); 
+} 
+  
+function onDrop(event){
+  onAddFile(event);
+  event.preventDefault(); 
+}  
+
+// Resampling
+// ( リサンプリング )           
+function resampling(wav, frequency, data){
+  
+  // ratio
+  var ratio =  wav.Analyst.WaveFomat.nSamplesPerSec / frequency;  
+  // 1 channel size
+  var size = (frequency * ( wav.Analyst.WaveFomat.wBitsPerSample * 1) * 
+              wav.Analyst.time / 1000) /  wav.Analyst.WaveFomat.wBitsPerSample;   
+
+  var tmpL = new Array(Math.floor(size));
+  var index = 0;          
+  for (var i=0;i< tmpL.length; i++){
+     index += ratio;
+     tmpL[i] = data.L[Math.floor(index -1)];
+  }
+  data.L = tmpL;
+
+  if (data.R.length != 0){
+    var tmpR = new Array(tmpL.length); 
+    index = 0                                 
+    for (var i=0;i< tmpL.length; i++){
+       index += ratio;
+       tmpR[i] = data.R[Math.floor(index-1)];       
+    }
+    data.R = tmpR;          
+  }  
+}  
+
+function setValue(src, dst, range, magnification){ 
+  
+  // +Octave
+  var index =0;  
+  if(magnification > 0){
+    
+    // Increase waves
+    // ( 波を増やす )        
+    for (var i=0;i< src.length/range; i++){
+      for (var j=0;j< magnification; j++){
+        for (var k=0;k< range; k++){
+          if(index >= dst.length) break;
+          dst[index++] = src[range *i +k];
+        }
+      }
+    }    
+    
+  // -Octave  
+  }else{
+    
+    // Reduce waves
+    // ( 波を減らす )
+    var index =0;    
+    if(magnification == -2){
+      for (var i=0;i< src.length/range; i++){
+        for (var k=0;k< range/2; k++){
+          if(index >= dst.length) break;  // :-)
+          dst[index++] = src[range *i +k];
+          dst[index++] = 0;          
+        }
+      }
+    }else if(magnification == -4){
+      for (var i=0;i< src.length/range; i++){
+        for (var k=0;k< range/4; k++){
+          if(index >= dst.length) break;  // :-)
+          dst[index++] = src[range *i +k];
+          dst[index++] = 0;             
+          dst[index++] = 0;          
+          dst[index++] = 0;          
+        }
+      }
+    }
+  }   
+}
+           
+function onAddFile(event) {
+  var files;
+  var errflg = false;
+  var reader = new FileReader();
+  
+  if(event.target.files){
+    files = event.target.files;
+  }else{ 
+    files = event.dataTransfer.files;   
+  }    
+  
+  if (!files[0]) return;
+   
+  reader.onload = function (event) {
+
+    try{
+      
+      var wav = new TWaveFormat(new Uint8Array(reader.result));
+      
+      var str = "File loaded : " + wav.Analyst.WaveFomat.wBitsPerSample + "bit ";
+      str += document.getElementById("msg").innerHTML = wav.Analyst.WaveFomat.nSamplesPerSec + "Hz ";
+     
+      if(wav.Analyst.WaveFomat.nChannels == 1){
+        str += " Mono ";
+      }else{
+        str += " Stereo ";
+      }
+      
+      str += Math.round(wav.Analyst.time)/1000 + "s";
+            
+      document.getElementById("msg").innerHTML =str;       
+   
+      var magnification = parseInt(document.getElementById("lst_octave").value,10);      
+      try{
+        var data = wav.getData();
+        
+        // +Octave
+        var frequency; 
+        if(magnification > 0){
+          frequency= wav.Analyst.WaveFomat.nSamplesPerSec / magnification;
+          resampling(wav, frequency, data);    
+          
+        // -Octave        
+        }else{
+          frequency = wav.Analyst.WaveFomat.nSamplesPerSec; 
+        }
+        
+        // Original sampling frequency.       
+        // ( 元のサンプリング周波数 )
+        frequency = wav.Analyst.WaveFomat.nSamplesPerSec;
+        var size = (frequency * (wav.Analyst.WaveFomat.wBitsPerSample * 1) *
+                    wav.Analyst.time / 1000) / wav.Analyst.WaveFomat.wBitsPerSample;   
+        var tmpL = new Array(Math.floor(size));
+        var tmpR = new Array(tmpL.length);
+
+        // range. Draw a wave based on this.
+        // ( 範囲。これを基準に波を描く。 )
+        var range;
+        if(magnification > 0){
+          range = Math.floor(wav.Analyst.WaveFomat.nAvgBytesPerSec/ magnification / 
+                             wav.Analyst.WaveFomat.wBitsPerSample / 2);                                 
+        }else{
+          range = Math.floor(wav.Analyst.WaveFomat.nAvgBytesPerSec / 
+                               wav.Analyst.WaveFomat.wBitsPerSample / 2);
+        }                                  
+         
+         
+        // Setting values
+        setValue(data.L, tmpL, range, magnification);
+        if (data.R.length != 0){
+          setValue(data.R, tmpR, range, magnification);
+          data.R = tmpR;
+        }
+        data.L = tmpL;
+        
+        // Save
+        var F = wav.WriteStream(wav.Analyst.WaveFomat.wBitsPerSample, data, frequency);
+        F.SaveToFile("test.wav","audio/wav");                
+        
+         
+      }catch(e){
+        alert("Could not acquire waveform data. (unsupported format)");
+        console.error(e);         
+      }
+     
+    }catch(e){
+      alert(e);
+     console.error(e); 
+    }    
+  };
+  
+  if (files[0]){    
+    reader.readAsArrayBuffer(files[0]); 
+    document.getElementById("inputfile").value = "";
+  }
+}      
+</script>
+</head>
+<body ondrop="onDrop(event);" ondragover="onDragOver(event);">  
+ <h1>DEMO5 "Effect - Octave"</h1>
+ <form> 
+   <p>This demo is an experimental code of the author. <br>Since there is no interpolation filter, please improve it.</p>
+   <table>
+     <tr><th>Wave File</th><td><input type="file" id="inputfile" accept="audio/wav" onchange="onAddFile(event);"></td></tr>
+   </table>    
+   <p></p> 
+   <table>
+     <tr><th>Octave</th>
+         <td><select id="lst_octave">
+               <option value="-4">-2 Octave</option>
+               <option value="-2">-1 Octave</option>
+               <option value="2" selected="selected">+1 Octave</option>
+               <option value="4">+2 Octave</option>
+               <option value="8">+3 Octave</option>
+             </select></td></tr>                    
+   </table>   
+   <p id="msg"></p> 
+   <p>(Japanese)<br>これは実験的なコードです。テストする際には 440Hz / 880Hz.wav を使用すると良いです。<br>
+     パソコンで鳴っている音の周波数は<a href="https://www.petitmonte.com/labo/zettai-onkan/">絶対音感</a>で確認できます。<a href="https://www.petitmonte.com/javascript/musical_scale_frequency.html">各音の周波数一覧 </a>も参照。<br>※補間フィルタは未使用なので滑らかでない。但し、単に計算式の誤りの可能性もあり。</p>
+ </form>
+</body>
+</html> 
