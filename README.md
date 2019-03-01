@@ -22,4 +22,4 @@ Wave file convert ( 8/16/24/32 bits, sampling frequency, channel ) and Analysis,
 MIT license  
   
 ### Other
-I made for my own voice processing learning. hope that can help you.
+Made for my own voice processing learning. hope that can help you.
