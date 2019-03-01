@@ -15,6 +15,8 @@ Wave file convert ( 8/16/24/32 bits, sampling frequency, channel ) and Analysis,
 ( Japanese | 日本語 )    
 [https://www.petitmonte.com/labo/wave-format/](https://www.petitmonte.com/labo/wave-format/)  
 [https://www.petitmonte.com/labo/wave-analysis/](https://www.petitmonte.com/labo/wave-analysis/)  
+[https://www.petitmonte.com/labo/wave-volume/](https://www.petitmonte.com/labo/wave-volume/)  
+[https://www.petitmonte.com/labo/wave-speed/](https://www.petitmonte.com/labo/wave-speed/)  
   
 ### Licence
 MIT license  
