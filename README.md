@@ -22,4 +22,7 @@ Wave file convert ( 8/16/24/32 bits, sampling frequency, channel ) and Analysis,
 MIT license  
   
 ### Other
+Waveファイルの結合、抽出(切り取り)、削除、逆方向、フェードイン、フェードアウトなどの例も追加予定です。  
+    
+### Finally
 Made for my own voice processing learning. hope that can help you.
