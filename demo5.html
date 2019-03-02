@@ -106,7 +106,7 @@ function onAddFile(event) {
       var wav = new TWaveFormat(new Uint8Array(reader.result));
       
       var str = "File loaded : " + wav.Analyst.WaveFomat.wBitsPerSample + "bit ";
-      str += document.getElementById("msg").innerHTML = wav.Analyst.WaveFomat.nSamplesPerSec + "Hz ";
+      str += wav.Analyst.WaveFomat.nSamplesPerSec + "Hz ";
      
       if(wav.Analyst.WaveFomat.nChannels == 1){
         str += " Mono ";
