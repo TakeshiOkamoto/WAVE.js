@@ -1017,25 +1017,29 @@ TWaveFormat.prototype = {
      
       // Canvasの「横1px」の最大値、最小値
       var max_list =[],min_list =[]; 
-      for(var i=0;i<(data.length / one_width_samples) - 1;i++){
-         var pos = i * one_width_samples;
-         
-         // Canvasの「横1px」のサンプル数の配列の切り出し
-         var lst = data.slice(pos,pos + one_width_samples);      
-        
-         // 最大/最小
-         var max = lst.reduce(function(x, y) {
-                               if (x > y) return x;
-                               return y;
-                             });
-         var min = lst.reduce(function(x, y) {
-                               if (x > y) return y;
-                               return x;
-                             });
-         // 値の正規化  
-         max_list.push(Normalization(max,half));
-         min_list.push(Normalization(min,half+1));
-      }
+      if(one_width_samples != 0){      
+        for(var i=0;i<(data.length / one_width_samples) - 1;i++){
+           var pos = i * one_width_samples;
+           
+           // Canvasの「横1px」のサンプル数の配列の切り出し
+           var lst = data.slice(pos,pos + one_width_samples);      
+          
+           // 最大/最小
+           var max = lst.reduce(function(x, y) {
+                                 if (x > y) return x;
+                                 return y;
+                               });
+           var min = lst.reduce(function(x, y) {
+                                 if (x > y) return y;
+                                 return x;
+                               });
+           // 値の正規化  
+           max_list.push(Normalization(max,half));
+           min_list.push(Normalization(min,half+1));
+        }
+      }else{
+        console.log("Drawing was not possible because the amount of data is small.");
+      } 
     
       ctx.fillStyle = "silver";
       ctx.clearRect(0,0,canvas.width,canvas.height);       
