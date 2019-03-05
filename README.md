@@ -41,7 +41,7 @@ Fade-out. ( フェードアウト )
   
 ![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo5.png)  
   
-## My Blog  
+## In My Blog  
   
 Convert MP3 / OGG / AAC / FLAC files to Wave files.  
 ( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )  
