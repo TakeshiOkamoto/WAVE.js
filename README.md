@@ -12,47 +12,65 @@ Change sampling frequency and channel of Wave file.
 Convert MP3 / OGG / AAC / FLAC files to Wave files.  
 ( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )  
    
-| Processing ( 操作 ) |
-| ---- |
-| Audio combination.<br>( 音声の結合 )<br>
- Audio extraction.<br>( 音声の抽出 )<br>
- Audio delete.<br>( 音声の削除 )|
-
-| Analysis ( 解析 ) |
-| ---- |
-| Draw the whole waveform to the Canvas.<br>( 全体の波形をCanvasへ描画 )|
+## Operation ( 操作 )
+Audio combination. ( 音声の結合 )  
+Audio extraction. ( 音声の抽出 )  
+Audio delete. ( 音声の削除 )  
   
-| Effects ( エフェクト系 ) |
-| ---- |
-|Change volume. <br>( ボリュームの変更 )<br>
-Changing the playback speed.<br>( 再生速度の変更 )<br>
-Add soundless.<br>( 無音の追加 )<br>
-Convert to reverse playback. <br>( 逆再生に変換 )<br>
-Fade-in. <br>( フェードイン )<br>
-Fade-out<br>( フェードアウト )|
+##  Analysis ( 解析 )
+Draw the whole waveform to the Canvas.  
+( 全体の波形をCanvasへ描画 )  
   
-    
-![Convert](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo1.png)  
+## Effects ( エフェクト系 )
+Change volume. ( ボリュームの変更 )  
+Changing the playback speed. ( 再生速度の変更 )  
+Add soundless. ( 無音の追加 )  
+Convert to reverse playback. ( 逆再生に変換 )  
+Fade-in. ( フェードイン )  
+Fade-out. ( フェードアウト )  
+   
+## DEMO 
   
-![Analysis](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo2.png)  
+![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo1.png)  
   
-![Volume](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo3.png)  
+![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo2.png)  
   
-![Speed](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo4.png)  
+![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo3.png)  
   
-![Octave](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo5.png)  
+![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo4.png)  
   
-( Japanese | 日本語 )    
-[https://www.petitmonte.com/labo/wave-format/](https://www.petitmonte.com/labo/wave-format/)  
-[https://www.petitmonte.com/labo/wave-analysis/](https://www.petitmonte.com/labo/wave-analysis/)  
-[https://www.petitmonte.com/labo/wave-volume/](https://www.petitmonte.com/labo/wave-volume/)  
-[https://www.petitmonte.com/labo/wave-speed/](https://www.petitmonte.com/labo/wave-speed/)  
+![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo5.png)  
+  
+## My Blog  
+  
+Convert MP3 / OGG / AAC / FLAC files to Wave files.  
+( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )  
+[https://www.petitmonte.com/javascript/convert_wave.html](https://www.petitmonte.com/javascript/convert_wave.html)  
+  
+Audio combination. ( 音声の結合 )    
+[https://www.petitmonte.com/javascript/wave_combine.html](https://www.petitmonte.com/javascript/wave_combine.html)  
+  
+Audio extraction. ( 音声の抽出 )    
+[https://www.petitmonte.com/javascript/wave_cut.html](https://www.petitmonte.com/javascript/wave_cut.html)  
+  
+Audio delete. ( 音声の削除 )    
+[https://www.petitmonte.com/javascript/wave_delete.html](https://www.petitmonte.com/javascript/wave_delete.html)  
+  
+Add soundless. ( 無音の追加 )  
+[https://www.petitmonte.com/javascript/wave_soundless.html](https://www.petitmonte.com/javascript/wave_soundless.html)  
+  
+Convert to reverse playback. ( 逆再生に変換 )  
+[https://www.petitmonte.com/javascript/wave_reverse.html](https://www.petitmonte.com/javascript/wave_reverse.html)  
+   
+Fade-in. ( フェードイン )  
+[https://www.petitmonte.com/javascript/wave_fade_in.html](https://www.petitmonte.com/javascript/wave_fade_in.html)  
+  
+Fade-out  ( フェードアウト )  
+[https://www.petitmonte.com/javascript/wave_fade_out.html](https://www.petitmonte.com/javascript/wave_fade_out.html)    
+  
   
 # Licence
 MIT license  
   
 # Other
-Waveファイルの結合、抽出(切り取り)、削除、逆方向、フェードイン、フェードアウトなどの例も追加予定です。  
-    
-# Finally
 Made for my own voice processing learning. hope that can help you.
