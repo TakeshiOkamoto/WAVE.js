@@ -42,6 +42,7 @@ Fade-out. ( フェードアウト )
 ![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo5.png)  
   
 ## In My Blog  
+Although it is Japanese, the source code is common to all countries.  
   
 Convert MP3 / OGG / AAC / FLAC files to Wave files.  
 ( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )  
