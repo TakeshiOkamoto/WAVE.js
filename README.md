@@ -26,7 +26,7 @@ Draw the whole waveform to the Canvas.
   
 ## Effects ( エフェクト系 )
 Change volume. ( ボリュームの変更 )  
-Changing the playback speed. ( 再生速度の変更 )  
+Change the playback speed. ( 再生速度の変更 )  
 Add soundless. ( 無音の追加 )  
 Convert to reverse playback. ( 逆再生に変換 )  
 Fade-in. ( フェードイン )  
