@@ -1,12 +1,13 @@
 # WAVE.js
 WAVE.js is class library for conversion / editing wave files.   
 ( Waveファイルの変換/編集を行うクラスライブラリ )  
-  
-| Conversion ( 変換 ) |
-| ---- |
-| 8/16/24/32 bit mutual conversion of Wave file.<br>( Waveファイルの8/16/24/32bitの相互変換 )<br>
+
+**Conversion ( 変換 )**
+<table>
+<tr><td>8/16/24/32 bit mutual conversion of Wave file.<br>( Waveファイルの8/16/24/32bitの相互変換 )<br>
 Change sampling frequency and channel of Wave file.<br>( Waveファイルのサンプリング周波数、チャンネルの変更 )<br>
-Convert MP3 / OGG / AAC / FLAC files to Wave files.<br>( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )|
+Convert MP3 / OGG / AAC / FLAC files to Wave files.<br>( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )</td></tr>
+</table>
   
 | Processing ( 操作 ) |
 | ---- |
