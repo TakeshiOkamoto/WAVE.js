@@ -12,7 +12,7 @@ Basic audio software function. It is possible to easily create "audio applicatio
 Change sampling frequency and channel of Wave file.  
 ( Waveファイルのサンプリング周波数、チャンネルの変更 )  
   
-Convert MP3 / OGG / AAC / FLAC files to Wave files.  
+Convert MP3 / OGG / AAC / FLAC files to Wave file.  
 ( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )  
    
 ## Operation ( 操作 )
@@ -69,7 +69,7 @@ Convert to reverse playback. ( 逆再生に変換 )
 Fade-in. ( フェードイン )  
 [https://www.petitmonte.com/javascript/wave_fade_in.html](https://www.petitmonte.com/javascript/wave_fade_in.html)  
   
-Fade-out  ( フェードアウト )  
+Fade-out. ( フェードアウト )  
 [https://www.petitmonte.com/javascript/wave_fade_out.html](https://www.petitmonte.com/javascript/wave_fade_out.html)    
   
   
