@@ -2,13 +2,16 @@
 WAVE.js is class library for conversion / editing wave files.   
 ( Waveファイルの変換/編集を行うクラスライブラリ )  
 
-**Conversion ( 変換 )**
-<table>
-<tr><td>8/16/24/32 bit mutual conversion of Wave file.<br>( Waveファイルの8/16/24/32bitの相互変換 )<br>
-Change sampling frequency and channel of Wave file.<br>( Waveファイルのサンプリング周波数、チャンネルの変更 )<br>
-Convert MP3 / OGG / AAC / FLAC files to Wave files.<br>( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )</td></tr>
-</table>
+## Conversion ( 変換 )
+8/16/24/32 bit mutual conversion of Wave file.  
+( Waveファイルの8/16/24/32bitの相互変換 )  
   
+Change sampling frequency and channel of Wave file.  
+( Waveファイルのサンプリング周波数、チャンネルの変更 )  
+  
+Convert MP3 / OGG / AAC / FLAC files to Wave files.  
+( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )  
+   
 | Processing ( 操作 ) |
 | ---- |
 | Audio combination.<br>( 音声の結合 )<br>
@@ -45,11 +48,11 @@ Fade-out<br>( フェードアウト )|
 [https://www.petitmonte.com/labo/wave-volume/](https://www.petitmonte.com/labo/wave-volume/)  
 [https://www.petitmonte.com/labo/wave-speed/](https://www.petitmonte.com/labo/wave-speed/)  
   
-### Licence
+# Licence
 MIT license  
   
-### Other
+# Other
 Waveファイルの結合、抽出(切り取り)、削除、逆方向、フェードイン、フェードアウトなどの例も追加予定です。  
     
-### Finally
+# Finally
 Made for my own voice processing learning. hope that can help you.
