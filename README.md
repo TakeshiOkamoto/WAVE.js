@@ -4,15 +4,15 @@ WAVE.js is class library for conversion / editing wave files.
   
 | Conversion ( 変換 ) |
 | ---- |
-| 8/16/24/32 bit mutual conversion of Wave file.<br>( Waveファイルの8/16/24/32bitの相互変換 ) |
-| Change sampling frequency and channel of Wave file.<br>( Waveファイルのサンプリング周波数、チャンネルの変更 )|
-| Convert MP3 / OGG / AAC / FLAC files to Wave files.<br>( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )|
+| 8/16/24/32 bit mutual conversion of Wave file.<br>( Waveファイルの8/16/24/32bitの相互変換 )<br>
+Change sampling frequency and channel of Wave file.<br>( Waveファイルのサンプリング周波数、チャンネルの変更 )<br>
+Convert MP3 / OGG / AAC / FLAC files to Wave files.<br>( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )|
   
 | Processing ( 操作 ) |
 | ---- |
-| Audio combination.<br>( 音声の結合 )|
-| Audio extraction.<br>( 音声の抽出 )|
-| Audio delete.<br>( 音声の削除 )
+| Audio combination.<br>( 音声の結合 )<br>
+ Audio extraction.<br>( 音声の抽出 )<br>
+ Audio delete.<br>( 音声の削除 )|
 
 | Analysis ( 解析 ) |
 | ---- |
@@ -20,12 +20,12 @@ WAVE.js is class library for conversion / editing wave files.
   
 | Effects ( エフェクト系 ) |
 | ---- |
-| Change volume. <br>( ボリュームの変更 )|
-| Changing the playback speed.<br>( 再生速度の変更 )|
-| Add soundless.<br>( 無音の追加 )|
-| Convert to reverse playback. <br>( 逆再生に変換 )|
-| Fade-in. <br>( フェードイン )|
-| Fade-out<br>( フェードアウト )|
+|Change volume. <br>( ボリュームの変更 )<br>
+Changing the playback speed.<br>( 再生速度の変更 )<br>
+Add soundless.<br>( 無音の追加 )<br>
+Convert to reverse playback. <br>( 逆再生に変換 )<br>
+Fade-in. <br>( フェードイン )<br>
+Fade-out<br>( フェードアウト )|
   
     
 ![Convert](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo1.png)  
