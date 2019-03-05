@@ -1,16 +1,42 @@
 # WAVE.js
-Wave file convert ( 8/16/24/32 bits, sampling frequency, channel ) and Analysis, Raw data effects ( volume, speed, octave )  
-( Waveファイル変換。 8/16/24/32bitの相互変換。サンプリング周波数、チャンネルの変更。解析、生データの操作、ボリューム、再生速度、オクターブの変更 )
+WAVE.js is class library for conversion / editing wave files.   
+( Waveファイルの変換/編集を行うクラスライブラリ )  
   
-![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo1.png)  
+| Conversion ( 変換 ) |
+| ---- |
+| 8/16/24/32 bit mutual conversion of Wave file.<br>( Waveファイルの8/16/24/32bitの相互変換 ) |
+| Change sampling frequency and channel of Wave file.<br>( Waveファイルのサンプリング周波数、チャンネルの変更 )|
+| Convert MP3 / OGG / AAC / FLAC files to Wave files.<br>( MP3/OGG/AAC/FLACファイルをWaveファイルに変換する )|
   
-![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo2.png)  
+| Processing ( 操作 ) |
+| ---- |
+| Audio combination.<br>( 音声の結合 )|
+| Audio extraction.<br>( 音声の抽出 )|
+| Audio delete.<br>( 音声の削除 )
+
+| Analysis ( 解析 ) |
+| ---- |
+| Draw the whole waveform to the Canvas.<br>( 全体の波形をCanvasへ描画 )|
   
-![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo3.png)  
+| Effects ( エフェクト系 ) |
+| ---- |
+| Change volume. <br>( ボリュームの変更 )|
+| Changing the playback speed.<br>( 再生速度の変更 )|
+| Add soundless.<br>( 無音の追加 )|
+| Convert to reverse playback. <br>( 逆再生に変換 )|
+| Fade-in. <br>( フェードイン )|
+| Fade-out<br>( フェードアウト )|
   
-![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo4.png)  
+    
+![Convert](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo1.png)  
   
-![イメージ](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo5.png)  
+![Analysis](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo2.png)  
+  
+![Volume](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo3.png)  
+  
+![Speed](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo4.png)  
+  
+![Octave](https://github.com/TakeshiOkamoto/WAVE.js/blob/master/demo5.png)  
   
 ( Japanese | 日本語 )    
 [https://www.petitmonte.com/labo/wave-format/](https://www.petitmonte.com/labo/wave-format/)  
