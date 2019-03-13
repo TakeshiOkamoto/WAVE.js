@@ -6,7 +6,6 @@ Basic audio software function. It is possible to easily create "audio applicatio
 ( 基本的な音声ソフトウェアの機能を備えています。ブラウザで「音声アプリ」を簡単に作成可能です。 )  
   
 High speed version ( 高速版 )  
-[WAVE.wasm.js](https://github.com/TakeshiOkamoto/WAVE.wasm.js) 
 [https://github.com/TakeshiOkamoto/WAVE.wasm.js](https://github.com/TakeshiOkamoto/WAVE.wasm.js) 
   
 ## Conversion ( 変換 )
