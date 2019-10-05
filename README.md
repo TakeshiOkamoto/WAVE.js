@@ -77,7 +77,7 @@ Fade-out. ( フェードアウト )
   
   
 # Licence
-MIT license  
+MIT license   
   
 # Other
 Made for my own voice processing learning. hope that can help you.
